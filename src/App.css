@@ -25,11 +25,11 @@ body::-webkit-scrollbar {
 }
 /* bluesky embeds */
 .bsky-embed-wrapper {
-  max-height: 400px; /* Adjust as needed */
+  max-height: 400px; /* Reduce the max height to match About Us */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-line-clamp: 6; /* Limit to 6 lines for consistency */
   -webkit-box-orient: vertical;
 }
 /* Logo Grid Container */

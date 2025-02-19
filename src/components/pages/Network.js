@@ -7,6 +7,7 @@ import {
 } from "../LogoName.js";
 import "../../App.css";
 import PageHeader from "../common/PageHeader"; 
+import GoToTopButton from "../common/GoToTopButton.js";
 
 // Networking Collaborators
 const networking = [
@@ -96,6 +97,7 @@ const Network = () => {
                     ))}
                 </motion.div>
             </div>
+            <GoToTopButton />
         </div>
     );
 };

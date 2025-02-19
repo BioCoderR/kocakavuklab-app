@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "../../App.css";
 import PageHeader from "../common/PageHeader";
+import GoToTopButton from "../common/GoToTopButton";
 
 function Overview() {
   
@@ -29,44 +30,46 @@ function Overview() {
       </div>
 
       {/* Content Section */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* About Us Section */}
-        <div className="bg-white shadow-xl rounded-lg p-8">
-          <PageHeader title="About Us" />
-          <p className="text-lg text-contain text-gray-700 leading-relaxed">
-          We are a dedicated team of Clinician-Scientists and Researchers based
-          at the West German Cancer Center and the National Center for Tumor
-          Diseases &#40;NCT&#41; West, University Hospital Essen. Our work lies at the
-          intersection of clinical oncology, computational biology and genomics.
-          Using high-throughput sequencing and computational analysis, combined
-          with preclinical functional studies, we aim to advance the field of
-          precision oncology. Understanding the evolutionary patterns &#40;both
-          natural and in response to treatment&#41; of cancer is a major part of our
-          research.
-          </p>
-        </div>
-      {/* Bluesky Embedded Timeline with Shorter Context */}
-      <div className="bg-white shadow-xl rounded-lg p-8 flex flex-col items-center">
-          <PageHeader title="Latest Updates" subtitle="News feed!" />
-          <div className="bsky-embed-wrapper">
+<div className="max-w-6xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+    {/* About Us Section */}
+    <div className="bg-white shadow-xl rounded-lg p-8 flex flex-col justify-between h-full">
+        <PageHeader title="About Us" />
+        <p className="text-lg text-gray-700 leading-relaxed flex-grow">
+            We are a dedicated team of Clinician-Scientists and Researchers based
+            at the West German Cancer Center and the National Center for Tumor
+            Diseases (NCT) West, University Hospital Essen. Our work lies at the
+            intersection of clinical oncology, computational biology, and genomics.
+            Using high-throughput sequencing and computational analysis, combined
+            with preclinical functional studies, we aim to advance the field of
+            precision oncology. Understanding the evolutionary patterns (both
+            natural and in response to treatment) of cancer is a major part of our
+            research.
+        </p>
+    </div>
+
+      {/* Bluesky Embedded Timeline - Adjusted */}
+    <div className="bg-white shadow-xl rounded-lg p-6 flex flex-col justify-between h-full">
+        <PageHeader title="Latest Updates" subtitle="News feed!" />
+        <div className="bsky-embed-wrapper flex-grow">
             <bsky-embed
-              username="ekocakavuk.bsky.social"
-              mode="light"
-              limit="3"
+                username="ekocakavuk.bsky.social"
+                mode="light"
+                limit="3"
             >
             </bsky-embed>
-          </div>
-
-          {/* Load More Button */}
-          <button
-            className="mt-4 px-4 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition duration-300"
-            onClick={() => window.open("https://bsky.app/profile/ekocakavuk.bsky.social", "_blank")}
-          >
-            Load More
-          </button>
         </div>
-      </div>
+
+        {/* Load More Button */}
+        <button
+            className="mt-4 px-4 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition duration-300 self-center"
+            onClick={() => window.open("https://bsky.app/profile/ekocakavuk.bsky.social", "_blank")}
+        >
+            Load More
+        </button>
     </div>
+  </div>
+  <GoToTopButton />
+  </div>
   );
 }
 

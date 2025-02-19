@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PageHeader from "../common/PageHeader";
-
+import GoToTopButton from "../common/GoToTopButton";
 const JoinUs = () => {
     const [showJobs, setShowJobs] = useState(false); // Controls visibility of job positions
 
@@ -10,13 +10,13 @@ const JoinUs = () => {
             title: "Open PhD Position Available",
             description: "We are looking for talented PhD candidates to join our research team.",
             status: "Open", // Change to "Closed" if needed
-            applyLink: "https://recruitment-page.com/phd",
+            applyLink: "https://karriere.ume.de/job-finder/?get_job=12175",
         },
         {
             title: "Open Postdoc Position",
             description: "We are currently accepting applications for Postdoctoral research positions.",
             status: "Open",
-            applyLink: "https://recruitment-page.com/postdoc",
+            applyLink: "https://karriere.ume.de/job-finder/?get_job=12180",
         },
     ];
 
@@ -29,8 +29,8 @@ const JoinUs = () => {
                     <div className="flex flex-col items-center md:items-start">
                         <PageHeader title="Join Our Research Team" subtitle=""/>
                         <p className="text-lg text-gray-700 leading-relaxed max-w-xl">
-                            We are constantly looking for highly motivated <strong>MDs-</strong>, 
-                            <strong>PhDs-</strong>, 
+                            We are constantly looking for highly motivated <strong>MD-</strong>, 
+                            <strong>PhD-</strong>, 
                             and <strong>Post-Doctoral</strong> candidates! 
                             If you are interested in working in a dynamic, devoted, 
                             and well-funded research team with a strong translational background and close 
@@ -92,6 +92,7 @@ const JoinUs = () => {
                     </div>
                 </div>
             )}
+            <GoToTopButton />
         </div>
     );
 };

@@ -6,7 +6,7 @@ import { FaTimes, FaBars } from "react-icons/fa";
 function NavBar() {
     const [click, setClick] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 960);
-    const [linkDisabled] = useState(true); // Change this to false to enable the link
+    const [linkDisabled] = useState(false); // Change this to false to enable the link
     const navbarRef = useRef(null);
 
     const handleClick = () => setClick(!click);

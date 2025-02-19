@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import GoToTopButton from "../common/GoToTopButton";
 
 const DesignCredits = () => {
   return (
@@ -77,6 +78,7 @@ const DesignCredits = () => {
           </div>
         </div>
       </div>
+      <GoToTopButton />
     </div>
   );
 };

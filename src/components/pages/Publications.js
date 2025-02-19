@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import GoToTopButton from "../common/GoToTopButton";
 const publications = [
     {
         title: "The Epigenetic Evolution of Glioma Is Determined by the IDH1 Mutation Status and Treatment Regimen",
@@ -61,47 +61,46 @@ const publications = [
 ];
 
 // Sort publications from latest to oldest
+// publications.sort((a, b) => {
+//     const yearA = parseInt(a.date.split("/")[1]); // Extracts the year
+//     const yearB = parseInt(b.date.split("/")[1]); // Extracts the year
+//     return yearB - yearA; // Sort in descending order (latest first)
+// });
+// **Improved Sorting by Year & Month**
 publications.sort((a, b) => {
-    const yearA = parseInt(a.date.split("/")[1]); // Extracts the year
-    const yearB = parseInt(b.date.split("/")[1]); // Extracts the year
-    return yearB - yearA; // Sort in descending order (latest first)
+    const [monthA, yearA] = a.date.split("/").map(Number);
+    const [monthB, yearB] = b.date.split("/").map(Number);
+    return yearB - yearA || monthB - monthA; // Sort by year, then month
 });
-
+// Carousel settings
+const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    centerMode: true,
+    centerPadding: "0px",
+    responsive: [
+        { breakpoint: 1024, settings: { slidesToShow: 2 } },
+        { breakpoint: 768, settings: { slidesToShow: 1, centerMode: false } }
+    ]
+};
 const PublicationsPage = () => {
-    // Slick carousel settings
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        centerMode: true,
-        centerPadding: "0px",
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: { slidesToShow: 2 }
-            },
-            {
-                breakpoint: 768,
-                settings: { slidesToShow: 1 }
-            }
-        ]
-    };
-
     return (
-        <div className="p-8 flex flex-col items-center w-full max-w-6xl mx-auto">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-8">
+            
             {/* Header */}
             <div className="text-center mb-6">
                 <h1 className="font-bold text-4xl text-gray-800">Publications</h1>
                 <p className="text-lg text-gray-600 mt-2">Explore our research work</p>
             </div>
 
-            {/* Publications Carousel */}
-            <div className="w-full max-w-3xl mx-auto flex justify-center mb-8">
-                <Slider {...settings} className="w-full">
+            {/* Publications Carousel - Visible Only on Medium & Large Screens */}
+            <div className="w-full max-w-4xl mx-auto mb-8 hidden sm:block">
+                <Slider {...carouselSettings} className="w-full">
                     {publications.map((pub, index) => (
                         <div key={index} className="px-4 flex justify-center">
                             <a href={pub.doi} target="_blank" rel="noopener noreferrer">
@@ -116,62 +115,89 @@ const PublicationsPage = () => {
                 </Slider>
             </div>
 
-            {/* Publications List */}
-            <div className="w-full max-w-4xl">
-                {publications.map((pub, index) => (
-                    <div key={index} className="flex flex-row items-center gap-6 py-4 border-b">
-                        {/* Left: Thumbnail */}
-                        <img src={pub.image} alt={pub.title} className="w-32 h-34 object-cover rounded-md" />
+            {/* Google Scholar Button for Large & Medium Screens - Centered after Carousel */}
+            <div className="w-full flex justify-center my-6 hidden sm:flex">
+                <a
+                    href="https://scholar.google.com/citations?user=gGSCLooAAAAJ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition shadow-md"
+                >
+                    View on Google Scholar
+                </a>
+            </div>
 
-                        {/* Right: Details */}
-                        <div className="flex flex-col flex-1">
-                            {/* Title */}
+            {/* Publications List */}
+            {publications.map((pub, index) => (
+                <div key={index} className="flex flex-col md:flex-row items-center gap-6 py-4 border-b">
+                    
+                    {/* Left: Thumbnail */}
+                    <img
+                        src={pub.image}
+                        alt={pub.title}
+                        className="w-32 h-auto max-h-40 object-cover rounded-md"
+                    />
+
+                    {/* Right: Details */}
+                    <div className="flex flex-col flex-1">
+                        
+                        {/* Title */}
+                        <a
+                            href={pub.doi}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xl font-regular text-gray-600 hover:underline"
+                        >
+                            {pub.title}
+                        </a>
+
+                        {/* Authors (Hidden on Small Screens) */}
+                        <p className="text-sm text-gray-500 mt-1 hidden sm:block">
+                            {pub.authors.split(", ").map((author, i) => (
+                                <span key={i} className={/Kocakavuk/.test(author) ? "font-bold text-black" : ""}>
+                                    {author}{i < pub.authors.split(", ").length - 1 ? ", " : ""}
+                                </span>
+                            ))}
+                        </p>
+
+                        {/* Journal & Year */}
+                        <p className="text-xl uppercase font-extrabold text-gray-600 italic mt-1">
+                            {pub.journal} {pub.date.split("/")[1]}
+                        </p>
+                        
+                        {/* Open Publication Button */}
+                        <div className="mt-3 hidden sm:block">
                             <a
                                 href={pub.doi}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xl font-regular text-gray-600 hover:underline"
+                                className="px-3 py-2 text-sm font-semibold text-gray-700 border hover:border-green-500 transition-all"
                             >
-                                {pub.title}
+                                PUBLISHER'S LINK
                             </a>
-
-                            {/* Authors List (with bolding for Kocakavuk, E.) */}
-                            <p className="text-sm text-gray-500 mt-1">
-                                {pub.authors.split(", ").map((author, i) => {
-                                const regex = /Kocakavuk,?\s?(E\.?|Emre)/i; // Case insensitive match
-                                return (
-                                    <span key={i} className={regex.test(author) ? "font-bold text-black" : ""}>
-                                        {author}{i < pub.authors.split(", ").length - 1 ? ", " : ""}
-                                    </span>
-                                    );
-                                })}
-                            </p>
-
-                            {/* Journal & Year */}
-                            <p className="text-xl uppercase font-extrabold text-gray-600 italic mt-1">
-                                {pub.journal} {pub.date.split("/")[1]}
-                            </p>
-
-                            {/* Open Publication Button */}
-                            <div className="mt-3">
-                                <a
-                                    href={pub.doi}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-3 py-2 text-sm font-semibold text-gray-700 border hover:inset-shadow-sm hover:border-green-500 hover:inset-shadow-green-500  transition-all"
-                                >
-                                    PUBLISHER'S LINK
-                                </a>
-                            </div>
                         </div>
-
-                        {/* Journal Logo */}
-                        <img src={pub.journalLogo} alt={pub.journal} className="w-16 h-16 object-contain rounded-full" />
                     </div>
-                ))}
+
+                    {/* Journal Logo */}
+                    <img src={pub.journalLogo} alt={pub.journal} className="w-16 h-16 object-contain rounded-full" />
+                </div>
+            ))}
+
+            {/* Google Scholar Button for Small Screens - Centered at the Bottom */}
+            <div className="w-full flex justify-center mt-8 sm:hidden">
+                <a
+                    href="https://scholar.google.com/citations?user=gGSCLooAAAAJ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition shadow-md"
+                >
+                    View on Google Scholar
+                </a>
             </div>
+
+            {/* Go to Top Button */}
+            <GoToTopButton />
         </div>
     );
 };
-
 export default PublicationsPage;

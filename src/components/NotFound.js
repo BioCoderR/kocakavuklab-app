@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import GoToTopButton from "./common/GoToTopButton";
 
 function NotFound() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function NotFound() {
           />
         </div>
       </div>
+      <GoToTopButton/>
     </div>
   );
 }

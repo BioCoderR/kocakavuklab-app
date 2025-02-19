@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import GoToTopButton from "../common/GoToTopButton";
 const PrivacyPolicy = () => {
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50 py-12 px-6">
@@ -109,6 +109,7 @@ const PrivacyPolicy = () => {
           </p>
         </div>
       </div>
+      <GoToTopButton />
     </div>
   );
 };

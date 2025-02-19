@@ -10,7 +10,7 @@ import PageHeader from "../common/PageHeader";
 // Icons
 import { FaMoneyBillWave, FaUserPlus, FaNewspaper } from "react-icons/fa";
 import { motion } from "framer-motion";
-
+import GoToTopButton from "../common/GoToTopButton";
 const fadeInEffect = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 1.2 } }
@@ -41,7 +41,7 @@ const news = [
   },
   {
     title: "Emmy Noether Grant by the DFG",
-    date: "August 2024",
+    date: "February 2025",
     description:
       "This is a true milestone for our laboratory as we have secured funding in the prestigious Emmy Noether Program of the German Research Foundation (DFG). The grant with a funding volume over 2M EUR will support our research for the next six years. Stay tuned for postdoc and PhD positions!" ,
     image: "/news/logo_emmy_noether.jpg",
@@ -69,15 +69,18 @@ const news = [
 ];
 
 // Sort news items in descending order (latest first)
+// Function to parse date strings into actual Date objects for sorting
 const parseDate = (dateString) => {
   const months = {
-    January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
-    July: 7, August: 8, September: 9, October: 10, November: 11, December: 12
+      January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
+      July: 6, August: 7, September: 8, October: 9, November: 10, December: 11
   };
+  
   const [month, year] = dateString.split(" ");
-  return new Date(year, months[month] - 1, 1); // (Year, Month index, Day)
+  return new Date(parseInt(year), months[month], 1); // Correct month index
 };
 
+// Sort news items in descending order (latest first)
 const sortedNews = [...news].sort((a, b) => parseDate(b.date) - parseDate(a.date));
 // Function to return the correct icon based on the category
 const getCategoryIcon = category => {
@@ -172,6 +175,7 @@ function News() {
           </VerticalTimelineElement>
         )}
       </VerticalTimeline>
+      <GoToTopButton />
     </div>
   );
 }

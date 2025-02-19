@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import emailjs from "emailjs-com";
 import { Link } from "react-router-dom";
 import PageHeader from "../common/PageHeader"; 
+import GoToTopButton from "../common/GoToTopButton";
 const Contact = () => {
   useEffect(() => {
     emailjs.init("wprxy5IfLB3zRbbj9");
@@ -152,6 +153,7 @@ const Contact = () => {
         ></iframe>
       </div>
       </div>
+      <GoToTopButton />
     </div>
   );
 };
